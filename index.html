@@ -731,4 +731,12 @@ setTimeout(() => {
 }, 100);
 
 const secs = document.querySelectorAll('section[id]');
-const navAs = document.querySelect
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if(window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navAs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+});
+</script>
+</body>
+</html>
