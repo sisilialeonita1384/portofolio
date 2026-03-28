@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sisilia Leonita Pasaribu</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #fdf8f4;
+  --bg2:      #f7f0e8;
+  --surface:  #ffffff;
+  --border:   #ecddd0;
+
+  /* pastel palette */
+  --rose:     #f7c5c5;
+  --rose-d:   #e8888a;
+  --rose-bg:  #fff0f0;
+  --sage:     #b8d8c8;
+  --sage-d:   #4a9070;
+  --sage-bg:  #edf7f1;
+  --sky:      #b8d4f0;
+  --sky-d:    #3a78c2;
+  --sky-bg:   #eef5fc;
+  --lav:      #cfc0f0;
+  --lav-d:    #7c5cbf;
+  --lav-bg:   #f2eefe;
+  --peach:    #ffd5b0;
+  --peach-d:  #d07030;
+  --peach-bg: #fff5eb;
+  --mint:     #a8e6d8;
+  --mint-d:   #2a8f78;
+
+  --accent:   #5a7f6a;   /* main green */
+  --accent2:  #7aaa8e;
+  --text:     #2a2420;
+  --text2:    #5a504a;
+  --muted:    #9a8e88;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── cursor ── */
+#cursor { width: 8px; height: 8px; background: var(--rose-d); border-radius: 50%; position: fixed; z-index: 9999; pointer-events: none; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+#cursor.big { width: 28px; height: 28px; background: transparent; border: 2px solid var(--rose-d); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 4rem;
+  background: rgba(253,248,244,0.92);
+  backdrop-filter: blur(18px);
+  border-bottom: 1.5px solid var(--border);
+}
+.nav-logo { font-family: 'Lora', serif; font-size: 1.2rem; color: var(--accent); letter-spacing: 0.02em; }
+.nav-links { display: flex; gap: 1.8rem; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; transition: color .2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 8rem 4rem 4rem;
+  position: relative; overflow: hidden;
+}
+/* pastel blob shapes */
+.blob1 { position: absolute; width: 420px; height: 420px; border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%; background: var(--rose); opacity: 0.35; top: -80px; right: -80px; animation: float1 8s ease-in-out infinite; pointer-events: none; }
+.blob2 { position: absolute; width: 300px; height: 300px; border-radius: 45% 55% 40% 60% / 55% 45% 55% 45%; background: var(--sky); opacity: 0.3; bottom: -60px; left: 30%; animation: float2 10s ease-in-out infinite; pointer-events: none; }
+.blob3 { position: absolute; width: 200px; height: 200px; border-radius: 50%; background: var(--peach); opacity: 0.25; bottom: 80px; right: 15%; animation: float1 7s ease-in-out infinite reverse; pointer-events: none; }
+@keyframes float1 { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(8deg)} }
+@keyframes float2 { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(15px) rotate(-6deg)} }
+
+.hero-inner { max-width: 1100px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--sage-bg); border: 1.5px solid var(--sage);
+  border-radius: 100px; padding: 0.4rem 1.1rem;
+  font-size: 0.78rem; font-weight: 600; color: var(--sage-d);
+  margin-bottom: 1.8rem; letter-spacing: 0.04em;
+}
+.hero-tag::before { content: '✦'; font-size: 0.7rem; }
+h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(3rem, 6.5vw, 5.5rem);
+  line-height: 1.08; color: var(--text);
+  margin-bottom: 0.5rem; letter-spacing: -0.01em;
+}
+h1 em { font-style: italic; color: var(--rose-d); }
+.hero-sub {
+  font-size: 1.15rem; color: var(--text2); font-weight: 400;
+  margin-bottom: 2.5rem; max-width: 560px; line-height: 1.8;
+}
+.hero-sub em { font-style: italic; font-family: 'Lora', serif; color: var(--rose-d); }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.8rem; }
+.hero-chip {
+  font-size: 0.78rem; font-weight: 600; padding: 0.35rem 1rem;
+  border-radius: 100px; border: 1.5px solid;
+}
+.hc-rose { background: var(--rose-bg); border-color: var(--rose); color: var(--rose-d); }
+.hc-sky  { background: var(--sky-bg);  border-color: var(--sky);  color: var(--sky-d); }
+.hc-lav  { background: var(--lav-bg);  border-color: var(--lav);  color: var(--lav-d); }
+.hc-peach{ background: var(--peach-bg);border-color: var(--peach);color: var(--peach-d); }
+.hc-mint { background: #e6f9f5; border-color: var(--mint); color: var(--mint-d); }
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn { padding: 0.85rem 2.2rem; border-radius: 100px; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; cursor: pointer; border: none; transition: all .25s; font-family: 'Outfit', sans-serif; }
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 20px rgba(90,127,106,0.3); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(90,127,106,0.4); background: var(--sage-d); }
+.btn-outline { background: var(--surface); color: var(--text2); border: 2px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* ── SECTIONS ── */
+section { padding: 6rem 4rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.sec-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: 'Fira Code', monospace; font-size: 0.7rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.sec-label::before { content: ''; width: 24px; height: 2px; background: var(--accent); border-radius: 1px; }
+h2.sec-title {
+  font-family: 'Lora', serif;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  color: var(--text); margin-bottom: 3rem; letter-spacing: -0.01em; line-height: 1.15;
+}
+
+/* ── ABOUT ── */
+#about { background: var(--surface); }
+.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 4rem; align-items: start; }
+.about-photo-col { position: sticky; top: 7rem; }
+.about-img-wrap {
+  width: 100%; aspect-ratio: 3/4; border-radius: 20px;
+  overflow: hidden; border: 3px solid var(--rose);
+  background: var(--rose-bg); position: relative;
+  box-shadow: 8px 8px 0 var(--rose);
+}
+.about-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.about-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-size: 0.75rem; font-family: 'Fira Code', monospace; }
+.gpa-badge {
+  position: absolute; bottom: -12px; right: -12px;
+  width: 70px; height: 70px; border-radius: 50%;
+  background: var(--sage-d); color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-family: 'Lora', serif; font-size: 1.1rem; line-height: 1.1;
+  border: 3px solid #fff; box-shadow: 0 4px 16px rgba(74,144,112,0.4);
+}
+.gpa-badge small { font-size: 0.48rem; font-family: 'Fira Code', monospace; opacity: 0.85; font-weight: 400; }
+
+.about-text p { color: var(--text2); font-size: 1rem; margin-bottom: 1.4rem; line-height: 1.85; }
+.about-text p strong { color: var(--text); font-weight: 700; }
+
+.courses-wrap { margin-top: 2rem; padding: 1.5rem; background: var(--lav-bg); border: 1.5px solid var(--lav); border-radius: 16px; }
+.courses-label { font-family: 'Fira Code', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--lav-d); margin-bottom: 0.9rem; }
+.course-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip { font-size: 0.75rem; font-weight: 600; background: var(--lav-bg); border: 1.5px solid var(--lav); border-radius: 100px; padding: 0.25rem 0.85rem; color: var(--lav-d); }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; }
+.tl-item { display: grid; grid-template-columns: 140px 1fr; gap: 2rem; padding-bottom: 3rem; position: relative; }
+.tl-item:not(:last-child)::after { content: ''; position: absolute; left: calc(140px + 2rem + 8px); top: 14px; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--rose) 0%, transparent 100%); border-radius: 1px; }
+.tl-date { font-family: 'Fira Code', monospace; font-size: 0.68rem; color: var(--muted); padding-top: 0.1rem; text-align: right; line-height: 1.5; }
+.tl-content { padding-left: 2rem; position: relative; }
+.tl-dot { position: absolute; left: -6px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--rose-d); border: 3px solid var(--surface); box-shadow: 0 0 0 2px var(--rose-d); }
+.tl-dot.green { background: var(--sage-d); box-shadow: 0 0 0 2px var(--sage-d); }
+.tl-role { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+.tl-org { font-size: 0.8rem; color: var(--sage-d); font-family: 'Fira Code', monospace; margin-bottom: 0.9rem; }
+.tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.tl-bullets li { font-size: 0.9rem; color: var(--text2); padding-left: 1.2rem; position: relative; line-height: 1.65; }
+.tl-bullets li::before { content: '✦'; position: absolute; left: 0; color: var(--rose-d); font-size: 0.55rem; top: 0.45rem; }
+.work-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: 0.8rem; margin-top: 1.3rem; }
+.work-photo { aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--rose-bg); border: 2px solid var(--rose); transition: transform .2s; cursor: pointer; }
+.work-photo:hover { transform: scale(1.03); }
+.work-photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; color: var(--rose); font-size: 0.62rem; font-family: 'Fira Code', monospace; }
+
+/* ── PROJECTS ── */
+#projects { background: var(--bg2); }
+.proj-tabs { display: flex; gap: 0.6rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+.proj-tab { padding: 0.6rem 1.6rem; border-radius: 100px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border: 2px solid var(--border); background: var(--surface); color: var(--muted); transition: all .2s; font-family: 'Outfit', sans-serif; }
+.proj-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 14px rgba(90,127,106,0.3); }
+.proj-tab:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 1.5rem; }
+.proj-panel { display: none; }
+.proj-panel.active { display: grid; }
+.proj-card { background: var(--surface); border: 2px solid var(--border); border-radius: 20px; padding: 1.8rem; transition: all .3s; position: relative; overflow: hidden; }
+.proj-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+/* pastel top bar per card */
+.proj-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 20px 20px 0 0; }
+.pc-rose::before { background: linear-gradient(90deg, var(--rose-d), var(--peach)); }
+.pc-sky::before  { background: linear-gradient(90deg, var(--sky-d), var(--lav-d)); }
+.pc-sage::before { background: linear-gradient(90deg, var(--sage-d), var(--mint-d)); }
+.pc-lav::before  { background: linear-gradient(90deg, var(--lav-d), var(--sky-d)); }
+.pc-peach::before{ background: linear-gradient(90deg, var(--peach-d), var(--rose-d)); }
+.pc-mint::before { background: linear-gradient(90deg, var(--mint-d), var(--sage-d)); }
+
+.proj-type { font-family: 'Fira Code', monospace; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.6rem; }
+.proj-name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; line-height: 1.3; }
+.proj-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.7; margin-bottom: 1rem; }
+.proj-github { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.73rem; font-family: 'Fira Code', monospace; color: var(--muted); text-decoration: none; border: 1.5px solid var(--border); border-radius: 100px; padding: 0.25rem 0.8rem; margin-bottom: 1rem; transition: all .2s; }
+.proj-github:hover { color: var(--accent); border-color: var(--accent); }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.proj-tag { font-size: 0.68rem; font-weight: 600; font-family: 'Fira Code', monospace; background: var(--bg2); border: 1.5px solid var(--border); border-radius: 100px; padding: 0.15rem 0.6rem; color: var(--text2); }
+
+/* ── SKILLS ── */
+#skills { background: var(--surface); }
+.skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.skills-label { font-family: 'Fira Code', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+.tech-logos { display: flex; flex-wrap: wrap; gap: 1.4rem; }
+.tech-logo-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: transform .2s; cursor: default; }
+.tech-logo-item:hover { transform: translateY(-4px); }
+.tech-logo-box { width: 68px; height: 68px; border-radius: 16px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--border); overflow: hidden; transition: border-color .2s; }
+.tech-logo-item:hover .tech-logo-box { border-color: var(--sage); }
+.tlb-py  { background: #fff8e6; }
+.tlb-sql { background: #e8f4fd; }
+.tlb-tab { background: #fff0f5; }
+.tlb-xl  { background: #e8f5ee; }
+.tlb-fig { background: #f5f0fe; }
+.tlb-can { background: #f5eeff; }
+.tech-logo-box img { width: 40px; height: 40px; object-fit: contain; }
+.tech-logo-name { font-size: 0.68rem; font-weight: 600; color: var(--text2); }
+.soft-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.soft-pill { font-size: 0.82rem; font-weight: 600; padding: 0.45rem 1.2rem; border-radius: 100px; border: 2px solid var(--border); background: var(--bg); color: var(--text2); transition: all .2s; cursor: default; }
+.soft-pill:nth-child(1):hover,.soft-pill:nth-child(5):hover { background: var(--rose-bg); border-color: var(--rose); color: var(--rose-d); }
+.soft-pill:nth-child(2):hover,.soft-pill:nth-child(6):hover { background: var(--sky-bg); border-color: var(--sky); color: var(--sky-d); }
+.soft-pill:nth-child(3):hover,.soft-pill:nth-child(7):hover { background: var(--sage-bg); border-color: var(--sage); color: var(--sage-d); }
+.soft-pill:nth-child(4):hover,.soft-pill:nth-child(8):hover { background: var(--lav-bg); border-color: var(--lav); color: var(--lav-d); }
+
+/* ── CERTIFICATIONS ── */
+#certifications { background: var(--bg2); }
+.cert-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 1.4rem; }
+.cert-item { background: var(--surface); border: 2px solid var(--border); border-radius: 18px; overflow: hidden; transition: all .25s; }
+.cert-item:hover { transform: translateY(-4px); box-shadow: 0 14px 32px rgba(0,0,0,0.09); }
+.cert-item:nth-child(1) { border-top: 4px solid var(--sky-d); }
+.cert-item:nth-child(2) { border-top: 4px solid var(--sage-d); }
+.cert-item:nth-child(3) { border-top: 4px solid var(--sage-d); }
+.cert-item:nth-child(4) { border-top: 4px solid #c9962a; }
+.cert-item:nth-child(5) { border-top: 4px solid var(--rose-d); }
+.cert-item:nth-child(6) { border-top: 4px solid var(--lav-d); }
+.cert-img-wrap { width: 100%; aspect-ratio: 16/9; background: var(--bg2); border-bottom: 1.5px solid var(--border); overflow: hidden; }
+.cert-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.cert-img-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; color: var(--muted); font-size: 0.7rem; font-family: 'Fira Code', monospace; }
+.cert-emoji { font-size: 2.2rem; }
+.cert-info { padding: 1.1rem 1.3rem; }
+.cert-name { font-size: 0.92rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; line-height: 1.35; }
+.cert-issuer { font-size: 0.72rem; color: var(--muted); font-family: 'Fira Code', monospace; }
+.cert-date { font-size: 0.68rem; color: var(--sage-d); margin-top: 0.3rem; font-weight: 600; }
+
+/* ── ORGANIZATIONS ── */
+#organizations { background: var(--surface); }
+.org-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.org-card { border-radius: 20px; overflow: hidden; border: 2px solid var(--border); transition: all .25s; background: var(--bg); }
+.org-card:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.09); }
+.org-card:nth-child(1) .org-card-header { background: var(--rose-bg); border-bottom: 2px solid var(--rose); }
+.org-card:nth-child(2) .org-card-header { background: var(--peach-bg); border-bottom: 2px solid var(--peach); }
+.org-card-header { padding: 1.8rem 2rem 1.5rem; }
+.org-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+.org-name { font-size: 0.98rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; line-height: 1.3; }
+.org-position { font-size: 0.75rem; font-family: 'Fira Code', monospace; color: var(--accent); letter-spacing: 0.06em; }
+.org-period { font-size: 0.68rem; color: var(--muted); font-family: 'Fira Code', monospace; margin-top: 0.3rem; }
+.org-card-body { padding: 1.5rem 2rem; }
+.org-act-title { font-size: 0.68rem; font-family: 'Fira Code', monospace; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 0.9rem; }
+.org-activities { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.org-activities li { font-size: 0.88rem; color: var(--text2); padding-left: 1.2rem; position: relative; line-height: 1.65; }
+.org-activities li::before { content: '✦'; position: absolute; left: 0; color: var(--rose-d); font-size: 0.55rem; top: 0.45rem; }
+.org-card:nth-child(2) .org-activities li::before { color: var(--peach-d); }
+.org-photos { padding: 0 2rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+.org-photo { aspect-ratio: 4/3; border-radius: 12px; overflow: hidden; background: var(--bg2); border: 1.5px solid var(--border); }
+.org-photo img { width: 100%; height: 100%; object-fit: cover; }
+.org-photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; color: var(--border); font-size: 0.58rem; font-family: 'Fira Code', monospace; }
+
+/* ── CONTACT ── */
+#contact { background: var(--bg2); }
+.contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+.contact-heading { font-family: 'Lora', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--text); margin-bottom: 1rem; line-height: 1.2; }
+.contact-heading em { font-style: italic; color: var(--rose-d); }
+.contact-sub { color: var(--text2); font-size: 0.95rem; line-height: 1.85; }
+.contact-links { display: flex; flex-direction: column; gap: 0.9rem; }
+.contact-link { display: flex; gap: 1rem; align-items: center; text-decoration: none; padding: 1.1rem 1.5rem; background: var(--surface); border: 2px solid var(--border); border-radius: 16px; color: var(--text); font-size: 0.9rem; transition: all .22s; }
+.contact-link:hover { transform: translateX(6px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.cl-1:hover { border-color: var(--rose); background: var(--rose-bg); }
+.cl-2:hover { border-color: var(--sky); background: var(--sky-bg); }
+.cl-3:hover { border-color: var(--border); background: #f6f8fa; }
+.cl-4:hover { border-color: var(--sage); background: var(--sage-bg); }
+.cl-logo { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cl-label { font-size: 0.68rem; font-family: 'Fira Code', monospace; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; min-width: 62px; }
+.cl-value { color: var(--text2); font-size: 0.85rem; font-weight: 500; }
+
+/* ── FOOTER ── */
+footer { padding: 2rem 4rem; border-top: 2px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: var(--muted); font-family: 'Fira Code', monospace; background: var(--surface); }
+
+/* Reveal - disabled, show all content immediately */
+.reveal { opacity: 1; transform: none; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 3px; }
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 4rem 1.5rem; }
+  #hero { padding: 8rem 1.5rem 4rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-photo-col { position: static; display: flex; justify-content: center; }
+  .about-img-wrap { max-width: 220px; }
+  .skills-layout, .contact-layout, .org-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .tl-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  .tl-item::after { display: none; }
+  .tl-date { text-align: left; }
+  footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Sisilia Leonita</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#organizations">Organizations</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="blob3"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Information Systems · Universitas Airlangga</div>
+    <h1>Sisilia Leonita<br><em>Pasaribu</em></h1>
+    <p class="hero-sub">Passionate about <em>data analysis</em> and <em>machine learning</em> — I love digging into data, finding patterns, and turning numbers into something actually useful.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="sec-label">01 — About Me</div>
+    <h2 class="sec-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-photo-col reveal">
+        <div style="position:relative; display:inline-block; padding-bottom:14px; width:100%">
+          <div class="about-img-wrap">
+            <img src="foto formal.jpg" alt="Sisilia">
+            </div>
+          </div>
+          <div class="gpa-badge">3.64<small>GPA/4.00</small></div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p>I am an Information Systems student driven by a strong interest in <strong>Data Science and Data Analytics</strong>, working at the intersection of data, technology, and strategic problem-solving. Through national competitions, hackathons, and academic projects, I have developed a solid analytical mindset and a professional approach to transforming data into meaningful insights.</p>
+        <p>With an increasing focus on Data Science and Data Analytics, I am passionate about leveraging data to drive meaningful insights and impactful digital solutions. My interest lies in <strong>analyzing, interpreting, and visualizing data</strong> to support strategic decisions, optimize processes, and create data-driven solutions that deliver tangible value.</p>
+        <div class="courses-wrap">
+          <div class="courses-label">Relevant Courses</div>
+          <div class="course-chips">
+            <span class="chip">Business Data Analysis</span>
+            <span class="chip">Data Mining</span>
+            <span class="chip">Data Analysis & Visualization</span>
+            <span class="chip">Database</span>
+            <span class="chip">Machine Learning</span>
+            <span class="chip">Knowledge-Based Systems</span>
+            <span class="chip">Computer Vision</span>
+            <span class="chip">Business Function & Processes</span>
+            <span class="chip">IS & Technology Innovation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="sec-label">02 — Work Experience</div>
+    <h2 class="sec-title">Where I've Worked</h2>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">Feb 2025<br>— May 2025</div>
+        <div class="tl-content">
+          <div class="tl-dot"></div>
+          <div class="tl-role">Data Analyst Intern</div>
+          <div class="tl-org">PT Bank Mandiri (Persero) Tbk. · Surabaya</div>
+          <ul class="tl-bullets">
+            <li>Cleaned, analyzed, and visualized duplicated data to identify potential and exact duplicate records, supporting data accuracy improvement across branches</li>
+            <li>Processed and visualized customer data (CIF) with input errors to enhance quality and reliability of customer records</li>
+            <li>Monitored key metrics related to customer data update performance, enabling branch-level tracking</li>
+            <li>Developed interactive Tableau dashboards to present key insights and collaborated with General Affairs team to meet data requirements</li>
+          </ul>
+          <div class="work-photos">
+            <div class="work-photo"><img src="magang1.png" alt=""></div>
+            <div class="work-photo"><img src="magang2.png" alt=""></div>
+            <div class="work-photo"><img src="magang3.png" alt=""></div>
+            <div class="work-photo"><img src="magang4.png" alt=""></div>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">Jul 2025<br>— Aug 2025</div>
+        <div class="tl-content">
+          <div class="tl-dot green"></div>
+          <div class="tl-role">IT Support Intern</div>
+          <div class="tl-org">Oceaneering · Batam</div>
+          <ul class="tl-bullets">
+            <li>Upgraded all office PCs and laptops from Windows 10 to Windows 11, ensuring smooth system migration</li>
+            <li>Collaborated with the IT team to remove network switch configurations before disposal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="sec-label">03 — Projects</div>
+    <h2 class="sec-title">What I've Built</h2>
+    <div class="proj-tabs">
+      <button class="proj-tab active" onclick="switchTab('academic')">Academic Projects</button>
+      <button class="proj-tab" onclick="switchTab('course')">Course Projects</button>
+    </div>
+    <!-- ACADEMIC -->
+    <div class="proj-panel proj-grid" id="tab-academic">
+      <div class="proj-card pc-mint reveal">
+        <div class="proj-type">DATA ANALYSIS & VISUALIZATION</div>
+        <div class="proj-name">US Supermarket Sales Analysis</div>
+        <div class="proj-desc">Analyzed supermarket sales data using Tableau to identify revenue, profit, and product performance patterns across locations and time.</div>
+        <a href="#" class="proj-github"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg> https://github.com/sisilialeonita1384/US-Supermarket-Sales-Tableau.git</a>
+        <div class="proj-tags"><span class="proj-tag">Tableau</span></div>
+      </div>
+      <div class="proj-card pc-sage reveal">
+        <div class="proj-type">MACHINE LEARNING</div>
+        <div class="proj-name">E-Commerce Sales Forecasting</div>
+        <div class="proj-desc">Built forecasting models using Random Forest and Prophet to analyze sales trends, demand patterns, and customer behavior from large-scale transaction data.</div>
+        <a href="#" class="proj-github"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg> https://github.com/sisilialeonita1384/E-commerce-Sales-Forecasting-Analysis.git</a>
+        <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Random Forest</span><span class="proj-tag">Prophet</span><span class="proj-tag">Time Series</span></div>
+      </div>
+      <div class="proj-card pc-rose reveal">
+        <div class="proj-type">MACHINE LEARNING</div>
+        <div class="proj-name">Food Recommendation System</div>
+        <div class="proj-desc">Developed a personalized DASH diet recommendation system using Contextual Multi-Armed Bandit to adapt meal suggestions based on user preferences and nutritional needs.</div>
+        <a href="#" class="proj-github"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg> https://github.com/sisilialeonita1384/Recommendation-System-using-Contextual-Multi-Armed-Bandit.git</a>
+        <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Recommendation System</span></div>
+      </div>
+      <div class="proj-card pc-lav reveal">
+        <div class="proj-type">COMPUTER VISION</div>
+        <div class="proj-name">Malaria Cell Classification</div>
+        <div class="proj-desc">Built an image classification model using EfficientNetV2 to detect malaria-infected cells, comparing preprocessing techniques (Otsu, Canny, Otsu+Canny) to improve performance.</div>
+        <a href="#" class="proj-github"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg> https://github.com/sisilialeonita1384/Malaria-Cell-Image-Classification-Computer-Vision-.git</a>
+        <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">PyTorch</span><span class="proj-tag">Computer Vision</span></div>
+      </div>
+    </div>
+    <!-- COURSE -->
+    <div class="proj-panel proj-grid" id="tab-course">
+      <div class="proj-card pc-mint reveal">
+        <div class="proj-type">DATA ANALYSIS & VISUALIZATION</div>
+        <div class="proj-name">Cyclistic Bike-Share Analysis</div>
+        <div class="proj-desc">Identified behavioral patterns between casual and member riders to support data-driven marketing strategies for increasing membership conversion.</div>
+        <a href="#" class="proj-github"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg> https://github.com/sisilialeonita1384/Google-Data-Analytics-Certificate-Program.git</a>
+        <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Tableau</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="sec-label">04 — Skills</div>
+    <h2 class="sec-title">Tools & Expertise</h2>
+    <div class="skills-layout">
+      <div class="reveal">
+        <div class="skills-label">Technical Skills</div>
+        <div class="tech-logos">
+          <div class="tech-logo-item">
+            <div class="tech-logo-box tlb-py"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+            <span class="tech-logo-name">Python</span>
+          </div>
+          <div class="tech-logo-item">
+            <div class="tech-logo-box tlb-sql"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL"></div>
+            <span class="tech-logo-name">SQL</span>
+          </div>
+          <div class="tech-logo-item">
+            <div class="tech-logo-box tlb-tab" style="padding:10px">
+              <svg viewBox="0 0 40 40" width="38" height="38" xmlns="http://www.w3.org/2000/svg">
+                <rect x="17" y="2" width="6" height="12" rx="1" fill="#4E79A7"/>
+                <rect x="17" y="26" width="6" height="12" rx="1" fill="#4E79A7"/>
+                <rect x="2" y="17" width="12" height="6" rx="1" fill="#E15759"/>
+                <rect x="26" y="17" width="12" height="6" rx="1" fill="#E15759"/>
+                <rect x="7" y="7" width="5" height="5" rx="0.5" fill="#F28E2B"/>
+                <rect x="28" y="7" width="5" height="5" rx="0.5" fill="#F28E2B"/>
+                <rect x="7" y="28" width="5" height="5" rx="0.5" fill="#76B7B2"/>
+                <rect x="28" y="28" width="5" height="5" rx="0.5" fill="#76B7B2"/>
+                <rect x="17" y="17" width="6" height="6" rx="1" fill="#59A14F"/>
+              </svg>
+            </div>
+            <span class="tech-logo-name">Tableau</span>
+          </div>
+          <div class="tech-logo-item">
+            <div class="tech-logo-box tlb-xl" style="padding:10px">
+              <svg viewBox="0 0 40 40" width="38" height="38" xmlns="https://id.wikipedia.org/wiki/Berkas:Microsoft_Office_Excel_%282018%E2%80%93present%29.svg">
+                <rect width="40" height="40" rx="7" fill="#217346"/>
+                <text x="7" y="26" font-family="Arial" font-size="13" font-weight="bold" fill="white">XLS</text>
+              </svg>
+            </div>
+            <span class="tech-logo-name">MS Excel</span>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="skills-label">Soft Skills</div>
+        <div class="soft-pills">
+          <span class="soft-pill">Leadership</span>
+          <span class="soft-pill">Grit</span>
+          <span class="soft-pill">Communication</span>
+          <span class="soft-pill">Teamwork</span>
+          <span class="soft-pill">Adaptive</span>
+          <span class="soft-pill">Analytical Thinking</span>
+          <span class="soft-pill">Public Relations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="sec-label">05 — Certifications & Achievements</div>
+    <h2 class="sec-title">Credentials</h2>
+    <div class="cert-gallery reveal">
+      <div class="cert-item">
+        <div class="cert-img-wrap"><img src="Coursera capstone.jpg"></div>
+        <div class="cert-info">
+          <div class="cert-name">Google Data Analytics Professional Certificate</div>
+          <div class="cert-issuer">Google · ID: M0RRXPL03I1I</div>
+          <div class="cert-date">Issued Mar 2026</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-img-wrap"><img src="sql_basic.jpg"></div>
+        <div class="cert-info">
+          <div class="cert-name">SQL (Intermediate) Certificate</div>
+          <div class="cert-issuer">HackerRank · ID: 0517849976CF</div>
+          <div class="cert-date">Issued Mar 2026</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-img-wrap"><img src="sql_intermediate.jpg"></div>
+        <div class="cert-info">
+          <div class="cert-name">SQL (Basic) Certificate</div>
+          <div class="cert-issuer">HackerRank · ID: AB5CDF26D046</div>
+          <div class="cert-date">Issued Mar 2026</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-img-wrap"><img src="bcc.png"></div>
+        <div class="cert-info">
+          <div class="cert-name">Semifinalist – Business Case Competition</div>
+          <div class="cert-issuer">ITS × Petrolida</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-img-wrap"><img src="sertif-google.jpg"></div>
+        <div class="cert-info">
+          <div class="cert-name">Djarum Beasiswa Plus '40 Awardee</div>
+          <div class="cert-issuer">Djarum Foundation</div>
+          <div class="cert-date">2024 – 2025</div>
+        </div>
+      </div>
+      <div class="cert-item">
+        <div class="cert-img-wrap"><img src="sertif-google.jpg"></div>
+        <div class="cert-info">
+          <div class="cert-name">Semifinalist – Business Case Competition</div>
+          <div class="cert-issuer">UI Innovation War</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZATIONS -->
+<section id="organizations">
+  <div class="section-inner">
+    <div class="sec-label">06 — Organizations & Activities</div>
+    <h2 class="sec-title">Beyond the Classroom</h2>
+    <div class="org-grid reveal">
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-icon"><img src="https://himsiunair.com/assets/image/logo.svg" alt="HIMSI" style="width:48px;height:48px;object-fit:contain;border-radius:8px;"></div>
+          <div class="org-name">Himpunan Mahasiswa S1 Sistem Informasi (HIMSI) — Universitas Airlangga</div>
+          <div class="org-position">Public Relations Staff</div>
+          <div class="org-period">Feb 2023 – Nov 2024</div>
+        </div>
+        <div class="org-card-body">
+          <div class="org-act-title">Activities</div>
+          <ul class="org-activities">
+            <li>Coordinated a comparative study attended by 100+ participants with another UNAIR study program</li>
+            <li>Handled and analyzed student and alumni data for the Information Systems program</li>
+            <li>Managed ISAC social media promotion across 38 provinces and 10+ high schools in Surabaya</li>
+            <li>Led Public Relations & Publications Division as Coordinator for ISAC 2024</li>
+            <li>Established media partnerships and managed collaborations with external partners</li>
+          </ul>
+        </div>
+        <div class="org-photos">
+          <div class="org-photo"><img src="SAFARI.png" alt=""></div>
+          <div class="org-photo"><img src="pengmas.png" alt=""></div>
+          <div class="org-photo"><img src="POINTER.png" alt=""></div>
+          <div class="org-photo"><img src="CHIKA.png" alt=""></div>
+        </div>
+      </div>
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-icon"><img src="https://djarumbeasiswaplus.org/assets/img/logo.jpg" alt="HIMSI" style="width:48px;height:48px;object-fit:contain;border-radius:8px;"></div>
+          <div class="org-name">Djarum Beasiswa Plus '40</div>
+          <div class="org-position">Scholarship Awardee (Beswan Djarum)</div>
+          <div class="org-period">2022 – Present</div>
+        </div>
+        <div class="org-card-body">
+          <div class="org-act-title">Programs & Activities</div>
+          <ul class="org-activities">
+            <li>Selected as one of 534 awardees nationwide from hundreds of thousands of applicants</li>
+            <li>Participated in Character Building training focusing on personal development, resilience, adaptability, and leadership fundamentals</li>
+            <li>Completed Leadership Development program to enhance communication, teamwork, and leadership capabilities</li>
+            <li>Attended Nation Building program, strengthening national awareness, cultural understanding, and social responsibility</li>
+            <li>Participated in Essay Contest to develop critical thinking, problem-solving, and idea articulation on social issues</li>
+          </ul>
+        </div>
+        <div class="org-photos">
+          <div class="org-photo"><img src="CB 2.png" alt=""></div>
+          <div class="org-photo"><img src="LD 2.png" alt=""></div>
+          <div class="org-photo"><img src="NB.png" alt=""></div>
+          <div class="org-photo"><img src="SOSIALISASI.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="sec-label">07 — Contact</div>
+    <div class="contact-layout">
+      <div class="reveal">
+        <h2 class="contact-heading">Let's work<br><em>together.</em></h2>
+        <p class="contact-sub">Open to internship opportunities, data science collaborations, and research projects. Don't hesitate to reach out!</p>
+      </div>
+      <div class="contact-links reveal">
+        <a href="/cdn-cgi/l/email-protection#e5968c968c898c8489808a8b8c918495849684978c8790a58288848c89cb868a88" class="contact-link cl-1">
+          <div class="cl-logo"><svg viewBox="0 0 48 48" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><path fill="#EA4335" d="M6 12l18 11L42 12v-2H6z"/><path fill="#34A853" d="M42 12v24a2 2 0 01-2 2H8a2 2 0 01-2-2V12l18 11z"/><path fill="#4285F4" d="M42 12l-18 11L6 12"/><path fill="#FBBC05" d="M6 12v2l18 9 18-9v-2"/></svg></div>
+          <span class="cl-label">Email</span>
+          <span class="cl-value"><span class="__cf_email__" data-cfemail="c9baa0baa0a5a0a8a5aca6a7a0bda8b9a8baa8bba0abbc89aea4a8a0a5e7aaa6a4">[email&#160;protected]</span></span>
+        </a>
+        <a href="https://linkedin.com/in/sisilia-leonita-pasaribu/" target="_blank" class="contact-link cl-2">
+          <div class="cl-logo"><svg viewBox="0 0 40 40" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="6" fill="#0077B5"/><path d="M12 16h4v13h-4zm2-6a2 2 0 110 4 2 2 0 010-4zm6 6h3.7v1.8h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V29h-4v-6.5c0-1.5 0-3.4-2.1-3.4-2.1 0-2.4 1.6-2.4 3.3V29H18z" fill="white"/></svg></div>
+          <span class="cl-label">LinkedIn</span>
+          <span class="cl-value">sisilia-leonita-pasaribu</span>
+        </a>
+        <a href="https://github.com/YOUR_USERNAME" target="_blank" class="contact-link cl-3">
+          <div class="cl-logo"><svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#24292e"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg></div>
+          <span class="cl-label">GitHub</span>
+          <span class="cl-value">YOUR_USERNAME ← ganti ini</span>
+        </a>
+        <a href="https://wa.me/6281277865630" target="_blank" class="contact-link cl-4">
+          <div class="cl-logo"><svg viewBox="0 0 40 40" width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect width="40" height="40" rx="6" fill="#25D366"/><path d="M20 8C13.37 8 8 13.37 8 20c0 2.14.58 4.14 1.58 5.88L8 32l6.28-1.55A11.92 11.92 0 0020 32c6.63 0 12-5.37 12-12S26.63 8 20 8zm6.13 16.47c-.26.7-1.53 1.34-2.1 1.42-.54.08-1.23.11-1.98-.12-.46-.14-1.04-.33-1.79-.65-3.14-1.35-5.19-4.5-5.35-4.71-.16-.21-1.3-1.73-1.3-3.3 0-1.57.82-2.34 1.11-2.66.29-.32.63-.4.84-.4h.6c.19 0 .45-.07.7.54l1 2.37c.09.2.04.43-.05.6l-.45.58c-.09.12-.19.25-.08.49.11.24.49.9 1.05 1.46.72.72 1.33 1 1.57 1.11.24.11.38.09.52-.05l.42-.5c.14-.18.28-.23.47-.14l2.37 1.12c.2.1.33.14.38.23.05.09.05.51-.21 1.21z" fill="white"/></svg></div>
+          <span class="cl-label">WhatsApp</span>
+          <span class="cl-value">+62 812 7786 5630</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Sisilia Leonita Pasaribu</span>
+  <span>Information Systems · Universitas Airlangga · Surabaya</span>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+document.querySelectorAll('a,button,.proj-card,.cert-item,.org-card,.tech-logo-item,.soft-pill').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+function switchTab(tab) {
+  document.querySelectorAll('.proj-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='academic')||(i===1&&tab==='course')));
+  document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  setTimeout(() => {
+    document.querySelectorAll('#tab-'+tab+' .reveal').forEach(el => { el.classList.remove('visible'); setTimeout(()=>el.classList.add('visible'),60); });
+  }, 10);
+}
+
+const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+// immediately show anything already in viewport
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight) el.classList.add('visible');
+  });
+}, 100);
+
+const secs = document.querySelectorAll('section[id]');
+const navAs = document.querySelect
